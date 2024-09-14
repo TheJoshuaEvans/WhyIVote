@@ -1,0 +1,9 @@
+{
+  "cSpell.words": [
+    "linebreak",
+    "whyivote"
+  ],
+  "jest.runMode": "on-demand",
+  "jest.jestCommandLine": "npm run test --",
+  "jest.rootPath": ""
+}

@@ -1,0 +1,43 @@
+# Workflow handles performing local API tests
+name: local-tests
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: Target tag or branch to test
+        type: string
+        default: 'main'
+
+jobs:
+  local_tests:
+    name: Local Tests
+    runs-on: ubuntu-latest
+    env:
+      # This prevents the JavaScript heap from running out of memory:
+      # https://github.com/actions/runner-images/issues/70#issuecomment-589562148
+      NODE_OPTIONS: "--max_old_space_size=4096"
+    steps:
+      # Setup
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.target }}
+
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Spin up Docker Environment
+        run: npm run docker:up
+
+      # Run code checks
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test

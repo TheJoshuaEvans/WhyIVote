@@ -1,0 +1,16 @@
+# This GitHub workflow runs whenever anything is pushed to a branch or tag that doesn't have
+# special rules and will perform linting and basic local tests
+name: on-push
+
+on:
+  push:
+    branches:
+    - '**'
+    tags:
+    - '**'
+
+jobs:
+  local_tests:
+    uses: ./.github/workflows/local-tests.yml
+    with:
+      target: ${{ github.ref_name }}

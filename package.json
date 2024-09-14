@@ -1,0 +1,33 @@
+{
+  "name": "whyivote",
+  "version": "1.0.0",
+  "description": "API for whyivote.io",
+  "main": "index.js",
+  "scripts": {
+    "cdk": "cdk ",
+    "docker:up": "docker compose -p why-i-vote up -d",
+    "docker:down": "docker compose -p why-i-vote down && docker compose -p why-i-vote down -v",
+    "docker:reset": "npm run docker:down && npm run docker:up",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "test:clean": "npm run docker:reset && npm run test"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@stylistic/eslint-plugin-js": "^2.8.0",
+    "@types/jest": "^29.5.13",
+    "aws-cdk": "^2.158.0",
+    "aws-cdk-lib": "^2.158.0",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0",
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
+  }
+}
